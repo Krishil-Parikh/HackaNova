@@ -1,12 +1,25 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const user = require("./routes/users")
-const PORT = 5000 
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('./db'); // Ensures DB connection is initialized
+const userRoutes = require("./routes/users");
+const videoRoutes = require("./routes/videos"); // Importing video routes
 
-app.use(cors())  
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json()) 
+app.use(cors());
+app.use(express.json());
 
-app.use("/user", user)
-app.listen(PORT)
+// Routes
+app.use("/user", userRoutes);
+app.use("/api/videos", videoRoutes); // Mount videos API route
+
+// Basic route check
+app.get("/", (req, res) => {
+    res.send("Welcome to the Sign Language API!");
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

@@ -1,15 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Brain, Users, Book, MessageSquare, Bot, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LearningHub = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [firstVideoId, setFirstVideoId] = useState(null);
   const navigate = useNavigate();
+
+  // Fetch video ID dynamically
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await axios.get('/api/videos'); // Make sure this endpoint returns a valid array
+        if (response.data.length > 0) {
+          setFirstVideoId(response.data[0]._id); // Use the first video ID
+        }
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   const learningOptions = [
     { title: 'Flashcards', icon: BookOpen, color: 'from-purple-500 to-purple-700', description: 'Practice with interactive flashcards', navigation: '/learn/flashcard' },
-    { title: 'Quiz', icon: Book, color: 'from-blue-500 to-blue-700', description: 'Test your knowledge', navigation: '/learn/quiz' },
-    { title: 'Video Lessons', icon: Brain, color: 'from-green-500 to-green-700', description: 'Watch Videos', navigation: '/video-lessons' },
+    { title: 'Quiz', icon: Book, color: 'from-blue-500 to-blue-700', description: 'Test your knowledge', navigation: firstVideoId ? `/learn/videos/${firstVideoId}` : '/learn/videos' },
+    { title: 'Video Lessons', icon: Brain, color: 'from-green-500 to-green-700', description: 'Watch Videos', navigation: '/learn/videos' },
     { title: 'Multiplayer', icon: Users, color: 'from-orange-500 to-orange-700', description: 'Practice with other learners', navigation: '/multiplayer' },
     { title: 'ISL Dictionary', icon: MessageSquare, color: 'from-pink-500 to-pink-700', description: 'Comprehensive sign language dictionary', navigation: '/isl-dictionary' }
   ];
@@ -65,7 +82,6 @@ const LearningHub = () => {
         </div>
         <div className="p-4 text-gray-300">
           <p>How can I assist you today?</p>
-          {/* Chat content goes here */}
         </div>
       </div>
     </div>
@@ -73,3 +89,4 @@ const LearningHub = () => {
 };
 
 export default LearningHub;
+  

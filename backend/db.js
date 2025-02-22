@@ -1,19 +1,17 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://manav25gohil:NBOFnjuXZ8XWPVHw@cluster0.7du3n.mongodb.net/sign_language')
-    .then(() => console.log("connected to mongoDB"))
-    .catch((err) => console.error('Mongodb connection error: ', err))
+const MONGO_URI = 'mongodb+srv://manav25gohil:NBOFnjuXZ8XWPVHw@cluster0.7du3n.mongodb.net/sign_language';
 
-const userSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    firstName: String,
-    lastName: String
+mongoose.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
+    .then(() => console.log("Connected to MongoDB ✅"))
+    .catch((err) => console.error("MongoDB connection error ❌:", err));
 
+// Handle DB connection errors
+mongoose.connection.on("error", err => {
+    console.error("MongoDB connection error ❌:", err);
+});
 
-const User = mongoose.model("User", userSchema)
-
-module.exports = {
-    User
-}
+module.exports = mongoose;
