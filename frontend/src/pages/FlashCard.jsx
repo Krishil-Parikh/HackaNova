@@ -4,21 +4,26 @@ import { X, Lock, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Flashcard = () => {
-
-    const navigate = useNavigate()
-  // Dummy data - replace with your database import
+  const img_path = [
+    'frontend/src/pages/img/signs.jpg', 
+    'frontend/src/pages/img/sign2.jpg',  
+    'frontend/src/pages/img/sign3.jpg'
+  ];
+  
+  const navigate = useNavigate();
+  
+  // Create cards with image paths
   const dummyCards = Array(25).fill().map((_, index) => ({
     id: index + 1,
-    image: `/api/placeholder/200/200`,
+    image: img_path[index % 3], // Cycle through the 3 images
     meaning: `Sign ${index + 1}`,
     isLocked: index !== 0
   }));
-
+  
   const [cards, setCards] = useState(dummyCards);
   const [selectedCard, setSelectedCard] = useState(null);
   const [flippedCards, setFlippedCards] = useState({});
 
-  // Unlock next card when current card is viewed
   useEffect(() => {
     if (selectedCard !== null) {
       const currentIndex = cards.findIndex(card => card.id === selectedCard);
@@ -52,12 +57,12 @@ const Flashcard = () => {
 
   return (
     <div className="bg-slate-900 min-h-screen p-8 text-white">
-        <button
-            onClick={() => navigate('/learn')}
-            className="absolute top-4 left-4 bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full flex items-center gap-2"
-        >
+      <button
+        onClick={() => navigate('/learn')}
+        className="absolute top-4 left-4 bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-full flex items-center gap-2"
+      >
         <ArrowLeft size={20} /> Back
-        </button>
+      </button>
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold mb-8 text-purple-400 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
           Sign Language Flashcards
@@ -217,22 +222,5 @@ const Flashcard = () => {
     </div>
   );
 };
-
-// Add these custom classes to your Tailwind CSS
-// You'll need to add these to your tailwind.config.js or CSS
-/*
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  .transform-style-3d {
-    transform-style: preserve-3d;
-  }
-  .backface-hidden {
-    backface-visibility: hidden;
-  }
-  .rotate-y-180 {
-    transform: rotateY(180deg);
-  }
-*/
 
 export default Flashcard;
