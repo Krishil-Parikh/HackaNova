@@ -10,6 +10,7 @@ import { SignIn } from './pages/Signin'
 import { SignUp } from './pages/Signup'
 import Quiz from './pages/quiz'
 import StartLearning from './pages/StartLearning'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
@@ -17,9 +18,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<SignUp />} />  
+          <Route path='/' element={<LandingPage />} />  
           <Route path='/signup' element={<SignUp />}></Route>
           <Route path='/signin' element={<SignIn />}></Route>
+          <Route path='/dashboard' element={<Dashboard />}></Route>
           <Route path='/landingpage' element={<LandingPage />}></Route>
           <Route path='/learn' element={<LearningHub />}></Route>
           <Route path='/learn/flashcard' element={<Flashcard />}></Route>

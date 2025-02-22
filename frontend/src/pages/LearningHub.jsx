@@ -25,8 +25,8 @@ const LearningHub = () => {
 
   const learningOptions = [
     { title: 'Flashcards', icon: BookOpen, color: 'from-purple-500 to-purple-700', description: 'Practice with interactive flashcards', navigation: '/learn/flashcard' },
-    { title: 'Quiz', icon: Book, color: 'from-blue-500 to-blue-700', description: 'Test your knowledge', navigation: firstVideoId ? `/learn/videos/${firstVideoId}` : '/learn/videos' },
-    { title: 'Video Lessons', icon: Brain, color: 'from-green-500 to-green-700', description: 'Watch Videos', navigation: '/learn/videos' },
+    { title: 'Quiz', icon: Book, color: 'from-blue-500 to-blue-700', description: 'Test your knowledge', navigation:'/learn/quiz' },
+    { title: 'Video Lessons', icon: Brain, color: 'from-green-500 to-green-700', description: 'Watch Videos', navigation: firstVideoId ? `/learn/videos/${firstVideoId}` : '/learn/videos' },
     { title: 'Multiplayer', icon: Users, color: 'from-orange-500 to-orange-700', description: 'Practice with other learners', navigation: '/multiplayer' },
     { title: 'ISL Dictionary', icon: MessageSquare, color: 'from-pink-500 to-pink-700', description: 'Comprehensive sign language dictionary', navigation: '/isl-dictionary' }
   ];

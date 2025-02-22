@@ -57,7 +57,7 @@ export const SignIn = () => {
                   });
 
                   localStorage.setItem("token", response.data.token);
-                  navigate("/landingpage");
+                  navigate("/dashboard");
                 } catch (err) {
                   alert("Invalid credentials!");
                 }

@@ -5,7 +5,7 @@ import axios from "axios";
 export const SignUp = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("  ");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
   
@@ -76,7 +76,7 @@ export const SignUp = () => {
   
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("username", response.data.username);
-                    navigate("/landingpage");
+                    navigate("/dashboard");
                   } catch (error) {
                     const errorMessage = error.response?.data?.message || error.message;
                     console.error("Signup failed:", errorMessage);
